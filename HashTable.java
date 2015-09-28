@@ -1,3 +1,8 @@
+/*
+ * Jack Proudfoot
+ * September 28, 2015
+ */
+
 
 public class HashTable {
 	
@@ -14,11 +19,16 @@ public class HashTable {
 		this.table = new Object[capacity];
 	}
 	
+	/*
+	 * Puts the object into the hashtable using Object's hashcode method.
+	 * It uses quadratic probing to deal with collisions.
+	 */
 	public void put (Object obj) {
 		int hashcode = obj.hashCode();
 		int location = hashcode % table.length;
 		if (location < 0) location += table.length;
 		
+		//Search for an empty space in the hashtable
 		int i = 1;
 		while (table[location] != null) {
 			location += i;
@@ -29,6 +39,7 @@ public class HashTable {
 		table[location] = obj;
 		population++;
 		
+		//If the population is greater than the load factor it rehashes.
 		if (population/table.length > loadFactor) rehash();
 	}
 	
@@ -61,19 +72,5 @@ public class HashTable {
 		tablestring += "]";
 		
 		return tablestring;
-	}
-	
-	public static void main (String [] args) {
-		HashTable table = new HashTable(10);
-		
-		Object a = new Object();
-		
-		table.put("jack");
-		System.out.println(table.toString());
-		
-		table.put("Hello World");
-		System.out.println(table.toString());
-		
-		System.out.println(table.toString());
 	}
  }
