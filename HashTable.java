@@ -1,6 +1,9 @@
 /*
  * Jack Proudfoot
+ * Version 0.0.0.0.a
  * September 28, 2015
+ * 
+ * A data structure used for storing values based on their hashcodes.
  */
 
 
@@ -19,9 +22,11 @@ public class HashTable {
 		this.table = new Object[capacity];
 	}
 	
-	/*
-	 * Puts the object into the hashtable using Object's hashcode method.
-	 * It uses quadratic probing to deal with collisions.
+	/**
+	 * @param obj An object to store in the hashtable.
+	 * 
+	 * Stores the Object obj in the hashtable using Object's hashcode method.
+	 * Uses quadratic probing to deal with collisions.
 	 */
 	public void put (Object obj) {
 		int hashcode = obj.hashCode();
@@ -43,6 +48,11 @@ public class HashTable {
 		if (population/table.length > loadFactor) rehash();
 	}
 	
+	/**
+	 * @return void
+	 * 
+	 * Doubles the table size and rehashes all of the objects contained in the Hashtable
+	 */
 	private void rehash () {
 		
 		/* Creates a new table to store all of the old data */
@@ -61,6 +71,9 @@ public class HashTable {
 		}
 	}
 	
+	/**
+	 * @return String Returns a string that represents the Hashtable
+	 */
 	public String toString () {
 		String tablestring = "[";
 		
@@ -73,4 +86,5 @@ public class HashTable {
 		
 		return tablestring;
 	}
+	
  }
