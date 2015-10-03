@@ -3,7 +3,9 @@
  * Version 0.0.0.0.a
  * September 28, 2015
  * 
- * A data structure used for storing values based on their hashcodes.
+ * A data structure used for storing data based on a key/object association. The location where the data is stored is found by 
+ * retrieving the hashcode of the key value and then modding it over the length of the array. If the array becomes populated over
+ * the load factor the array's size is doubled and the objects are rehashed.
  */
 
 
