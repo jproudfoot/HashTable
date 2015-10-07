@@ -3,14 +3,8 @@
  * Version 0.0.0.0.a
  * September 28, 2015
  * 
-<<<<<<< HEAD
  * A data structure used for storing and retrieving values based on their hashcodes. Runs in 
  * constant time.
-=======
- * A data structure used for storing data based on a key/object association. The location where the data is stored is found by 
- * retrieving the hashcode of the key value and then modding it over the length of the array. If the array becomes populated over
- * the load factor the array's size is doubled and the objects are rehashed.
->>>>>>> c12013a995ba951bc78f01e6ed96133216271ec3
  */
 
 
@@ -33,10 +27,10 @@ public class HashTable <K, V> {
 	}
 	
 	/**
-	 * @param obj An object to store in the hashtable.
-	 * 
 	 * Stores the Object obj in the hashtable using Object's hashcode method.
 	 * Uses quadratic probing to deal with collisions.
+	 * 
+	 * @param obj An object to store in the hashtable.
 	 */
 	@SuppressWarnings("unchecked")
 	public void put (K key, V value) {
@@ -60,12 +54,12 @@ public class HashTable <K, V> {
 	}
 	
 	/**
-	 * @param K The key that corresponds to the value.
-	 * @return V
-	 * 
 	 * Searches the hash table for the entry that has the same key as the parameter. Returns
 	 * the value that corresponds to that key stored in the hashtable and removes that value
 	 * from the table. 
+	 * 
+	 * @param K The key that corresponds to the value.
+	 * @return V The value with key K
 	 */
 	public V remove (K key) {
 		int location = key.hashCode() % table.length;
@@ -83,19 +77,18 @@ public class HashTable <K, V> {
 		population--;
 		
 		
-		/* Creates a new table to store all of the old data */
-		Entry<K, V>[] oldTable = new Entry[table.length];
-		for (int x = 0; x < table.length; x++) {
-			oldTable[x] = table[x];
-		}
-
-		/* Clears the old table*/
-		table = new Entry[table.length];
-		
 		/*Rehashes the objects */
-		population = 0;
-		for (Entry<K, V> ent : oldTable) {
-			if (ent != null) put(ent.getKey(), ent.getValue());
+		location += 1;
+		while(true) {
+			HashTable<K, V>.Entry<K, V> e = table[location];
+			
+			if (e == null) break;
+			
+			population--;
+			table[location] = null;
+			put(e.getKey(), e.getValue());
+			
+			location *= 2;
 		}
 		
 		return value;
@@ -103,11 +96,11 @@ public class HashTable <K, V> {
 	
 	
 	/**
-	 * @param K The key that corresponds to the value.
-	 * @return V
-	 * 
 	 * Searches the hash table for the entry that has the same key as the parameter. Returns
 	 * the value that corresponds to that key stored in the hashtable. 
+	 * @param K The key that corresponds to the value.
+	 * @return V Value with the given key.
+	 * 
 	 */
 	public V get (K key) {
 		int location = key.hashCode() % table.length;
@@ -126,8 +119,8 @@ public class HashTable <K, V> {
 	}
 	
 	/**
-	 * @return boolean 
 	 * Returns whether or not the key is contained in the hashtable
+	 * @return boolean Key contained in table.
 	 */
 	private boolean containsKey (K key) {
 		for (Entry<K, V> e: table) {
@@ -139,8 +132,10 @@ public class HashTable <K, V> {
 	
 
 	/**
-	 * @return boolean 
+	 * 
 	 * Returns whether or not the value is contained in the hashtable
+	 * 
+	 * @return boolean Value contained in table.
 	 */
 	private boolean containsValue (V value) {
 		for (Entry<K, V> e: table) {
@@ -151,9 +146,9 @@ public class HashTable <K, V> {
 	}
 	
 	/**
+	 * Doubles the table size and rehashes all of the objects contained in the Hashtable
 	 * @return void
 	 * 
-	 * Doubles the table size and rehashes all of the objects contained in the Hashtable
 	 */
 	@SuppressWarnings("unchecked")
 	private void rehash () {
@@ -187,18 +182,17 @@ public class HashTable <K, V> {
 		}
 		
 		/**
+		 * Returns the key for this entry.
 		 * @return K
 		 * 
-		 * Returns the key for this entry.
 		 */
 		public K getKey() {
 			return this.key;
 		}
 		
 		/**
-		 * @return V
-		 * 
 		 * Returns the value for this entry.
+		 * @return V
 		 */
 		public V getValue() {
 			return this.value;
@@ -206,7 +200,10 @@ public class HashTable <K, V> {
 	}
 	
 	/**
+	 * Converts the hashtable to a string.
+	 * 
 	 * @return String Returns a string that represents the Hashtable
+	 * 
 	 */
 	public String toString () {
 		String tablestring = "[";
@@ -222,10 +219,10 @@ public class HashTable <K, V> {
 	}
 	
 	/**
+	 * A method to generate the next greatest prime number
+	 * 
 	 * @return int Returns the next greatest prime number
 	 * @param int Number to start search
-	 * 
-	 * A method to generate the next greatest prime number
 	 */
 	private static int generatePrime (int num) {
 		
