@@ -3,8 +3,14 @@
  * Version 0.0.0.0.a
  * September 28, 2015
  * 
+<<<<<<< HEAD
  * A data structure used for storing and retrieving values based on their hashcodes. Runs in 
  * constant time.
+=======
+ * A data structure used for storing data based on a key/object association. The location where the data is stored is found by 
+ * retrieving the hashcode of the key value and then modding it over the length of the array. If the array becomes populated over
+ * the load factor the array's size is doubled and the objects are rehashed.
+>>>>>>> c12013a995ba951bc78f01e6ed96133216271ec3
  */
 
 
